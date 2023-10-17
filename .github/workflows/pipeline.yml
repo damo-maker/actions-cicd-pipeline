@@ -7,14 +7,23 @@ env:
 
 jobs:
   Test:
-    name: Create a python program
+    name: Execute a python program
     runs-on: ubuntu-latest
     
     steps:
-    - name: checkout code
+    - name: checkout repo content
       uses: actions/checkout@v2
-    - name: Hello World
-      run: ./hello.py
+    - name: setup python
+      uses: actions/setup-python@v3
+      with: 
+        python-version: '3.9.6'
+
+    - name: install python packages
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: execute py script
+      run: python hello.py
 
   Build:
     needs: [Test]
